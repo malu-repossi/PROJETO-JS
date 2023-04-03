@@ -1,46 +1,34 @@
-import salarioMinimo from "./Salario Minimo";
-import inflacao from "./Inflacao";
-import {dadosFormatacao, impressao, reajusteSalario} from "./funcoesAuxiliares";
-
-let numero = 0;
-let salario = 0;
-let ipca = 0;
-let percentualCrescimento = 0;
+import salarioMinimo from "./Salario Minimo.js";
+import inflacao from "./Inflacao.js";
+import {impressaoSalario, impressaoIPCA, impressaoAmbos, reajusteSalario} from "./funcoesAuxiliares.js";
 
 function opcao1 (){
-    numero = 1;
     for(let i = 0; i < salarioMinimo.length; i++)
         {
-            salario = salarioMinimo[i].salario;
-            salario = dadosFormatacao(salario);
-               
-            impressao(numero, salarioMinimo, salario, ipca, percentualCrescimento);
+            let salario = salarioMinimo[i].salario;
+
+            impressaoSalario(salarioMinimo[i].ano, salario);
         }
 }
 
 function opcao2(){
-    numero = 2;
     for(let i = 0; i < inflacao.length; i++)
         {
-            ipca = inflacao[i].ipca;
-            ipca = dadosFormatacao(ipca);
+           let ipca = inflacao[i].ipca;
 
-            impressao(numero, salarioMinimo, salario, ipca, percentualCrescimento);
+           impressaoIPCA(inflacao[i].ano, ipca)
         }
 }
 
 function opcao3 (){
-    numero = 3;
     for(let i = 0; i < salarioMinimo.length; i++)
         {
-            salario = salarioMinimo[i].salario;
-            ipca = inflacao[i].ipca;
-            percentualCrescimento = reajusteSalario(salarioMinimo, salario);
-            salario = dadosFormatacao(salario);
-            ipca = dadosFormatacao(ipca);
+            let salario = salarioMinimo[i].salario;
+            let ipca = inflacao[i].ipca;
+            let ajuste = reajusteSalario(i, salario);
 
-            impressao(numero, salarioMinimo, salario, ipca, percentualCrescimento);   
-        }
+            impressaoAmbos(salarioMinimo[i].ano, salario, ipca, ajuste);
+            }
 }
 
 export {opcao1, opcao2, opcao3};
